@@ -8,7 +8,8 @@ const app = express();
 // importing  Routes
 const {bloodSampleRoute} =require("./routes/bloodSampleRoute")
 const { HospitalRoute}=require("./routes/hospitalRoute")
-let{add}=require("./controllers/hospitalController")
+const {localBBroute}=require("./routes/local blood bankRoute")
+// let{add}=require("./controllers/hospitalController")
 
 
 // Connecting to the database
@@ -27,6 +28,7 @@ mongoose
   // Routes middleware
   app.use("/bloodSample",bloodSampleRoute)
   app.use("/Hospital",HospitalRoute)
+  app.use("/localBB",localBBroute)
   
 
 // add(1,"A1","A11","A111")
@@ -37,8 +39,7 @@ mongoose
 
 
   // Setting the port
-  const port = 5000;
- 
+  const port = 5000; 
    app.listen(port, () => {
     console.log("connected successfullyto  localhost : " + port);
   });
