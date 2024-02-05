@@ -11,8 +11,8 @@ const {
 } = require("../controllers/bloodSampleController");
 
 /**
- *descri:show all data
- *method : get
+ *@descri show all data
+ *@method   get
  */
 
 bloodSampleRoute.get("/", async (req, res) => {
@@ -20,20 +20,12 @@ bloodSampleRoute.get("/", async (req, res) => {
 });
 
 /**
- *descri:add data
- *method : post
+ *@descri add data
+ *@method  post
  */
 
 bloodSampleRoute.post("/add", async (req, res) => {
-  let data = await addBloodSample(
-    req.body.id,
-    req.body.receiverId,
-    req.body.donorId,
-    req.body.bloodType,
-    req.body.donationStatus,
-    req.body.donationDate,
-    req.body.expireDate
-  );
+  let data = await addBloodSample(req.body);
   res.send(data);
 });
 
