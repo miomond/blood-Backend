@@ -1,19 +1,21 @@
 let { BloodSample } = require("../models/bloodSample");
+const asynchandler = require("express-async-handler");
 
-async function showBloodSamples() {
-  try {
-    let data = await BloodSample.find();
-    return data;
-  } catch (error) {
-    console.log("something error");
-    return error;
-  }
-}
+let showBloodSamples = asynchandler(async () => {
+  let data = await BloodSample.find();
+  return data;
+});
 
 async function addBloodSample(obj) {
   let {
-    id,receiverId,donorId,bloodType,
-    donationStatus,donationDate,expireDate,} = obj;
+    id,
+    receiverId,
+    donorId,
+    bloodType,
+    donationStatus,
+    donationDate,
+    expireDate,
+  } = obj;
   try {
     let data = await BloodSample.create({
       id: id,
