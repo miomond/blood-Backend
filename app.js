@@ -31,11 +31,6 @@ mongoose
   app.use("/localBB",localBBroute)
   
 
-// add(1,"A1","A11","A111")
-// add(2,"B1","B11","B111")
-// add(3,"C1","C11","C111")
-// add(4,"D1","D11","D111")
-
 
 
   // Setting the port

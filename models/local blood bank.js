@@ -6,7 +6,7 @@ const localBBschema = mongoose.Schema({
   city: { type: String, required: true },
   street: { type: String, required: true },
   workingHours: { type: String, default:"24 hour" },
-  holiday: { type: String,default:"all week"},
+  holiday: { type: String,default:"no time to stay home"},
   bloodTypesNeeded: {type: [String],enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],required: true},
 });
 

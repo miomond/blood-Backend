@@ -1,11 +1,26 @@
+// importing packages and modules
 const { localBB } = require("../models/local blood bank");
+const asynchandler = require("express-async-handler");
 
-async function showAll() {
+/************@show func*/
+let show= asynchandler(async ()=> {
   let data = await localBB.find();
   return data;
-}
+})
 
-async function add(obj) {
+/************@find func*/
+let find = asynchandler(async (bankId) => {
+  let data = await localBB.find({ bankId });
+  if (data.length > 0) {
+    return data;
+  } else {
+    return "no data found";
+  }
+});
+
+/************@add func*/
+
+let add=asynchandler(async (obj)=> {
   let {
     bankId,
     bankName,
@@ -17,16 +32,60 @@ async function add(obj) {
   } = obj;
 
   let data = await localBB.create({
-    bankId: bankId,
-    bankName: bankName,
-    city: city,
-    street: street,
-    workingHours: workingHours,
-    holiday: holiday,
-    bloodTypesNeeded: bloodTypesNeeded,
+    bankId,
+    bankName,
+    city,
+    street,
+    workingHours,
+    holiday,
+    bloodTypesNeeded,
   });
-  console.log("data has been added");
-  return localBB.find();
+  return "data has been added";
 }
+)
 
-module.exports = { showAll, add };
+/************@update func*/
+
+let up=asynchandler(async (bankId, obj)=> {
+  let {
+    bankName,
+    city,
+    street,
+    workingHours,
+    holiday,
+    bloodTypesNeeded,
+  } = obj;
+
+  let data = await localBB.findOneAndUpdate(
+    { bankId },
+    {
+      bankName,
+      city,
+      street,
+      workingHours,
+      holiday,
+      bloodTypesNeeded,
+    }
+  );
+  if (data) {
+    return "data has been updated";
+  } else {
+    return "no data found to update";
+  }
+})
+
+/************@delete func*/
+
+let del=asynchandler(async (bankId)=> {
+  
+  let data = await localBB.findOneAndDelete(
+    { bankId })
+    
+  if (data) {
+    return "data has been deleted";
+  } else {
+    return "no data found to delete";
+  }
+})
+
+module.exports = { show, find, add, up ,del};

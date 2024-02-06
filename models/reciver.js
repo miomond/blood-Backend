@@ -17,10 +17,8 @@ const receiverSchema = new mongoose.Schema({
   caseTitle: { type: String },
   caseDescription: { type: String },
   address: { type: String },
-  bloodTypeNeeded: {
-    type: String,
-    enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
-  },
+  bloodTypeNeeded: {type: String,
+    enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],},
   wantedHospital: { type: mongoose.Schema.Types.ObjectId, ref: "Hospital" },
   quantity: { type: [String] },
   receivingDates: { type: [Date] },

@@ -6,6 +6,7 @@ const bloodSampleRoute = express.Router();
 // importing controller modules
 const {
   addBloodSample,
+  findBloodSamples,
   showBloodSamples,
   deleteBloodSample,
   updateBloodSample,
@@ -13,13 +14,27 @@ const {
 
 /**
  *@descri show all data
- *@method   get
+ *@method   post
  */
 
-bloodSampleRoute.get("/",asynchandler(async (req, res) => {
+bloodSampleRoute.post("/show",asynchandler(async (req, res) => {
     res.send(await showBloodSamples());
   })
 );
+
+/**
+ *@descri find by id
+ *@method   post
+ */
+
+bloodSampleRoute.post("/:id",asynchandler(async (req, res) => {
+    res.send(await findBloodSamples(req.params.id));
+  })
+);
+
+
+
+
 
 /**
  *@descri add data
@@ -32,12 +47,12 @@ bloodSampleRoute.post("/add", asynchandler(async (req, res) => {
 }));
 
 /**
- *descri:add delete
- *method : post
+ *@descri delete
+ *@method  post
  */
 
-bloodSampleRoute.post("/del", asynchandler(async (req, res) => {
-  let data = await deleteBloodSample(req.body.id);
+bloodSampleRoute.post("/del/:id", asynchandler(async (req, res) => {
+  let data = await deleteBloodSample(req.params.id);
   res.send(data);
 }));
 
@@ -46,8 +61,8 @@ bloodSampleRoute.post("/del", asynchandler(async (req, res) => {
  *method : post
  */
 
-bloodSampleRoute.post("/up", asynchandler(async (req, res) => {
-  let data = await updateBloodSample(req.body.oldValue, req.body.newValue);
+bloodSampleRoute.post("/up/:id", asynchandler(async (req, res) => {
+  let data = await updateBloodSample(req.params.id,req.body);
   res.send(data);
 }));
 

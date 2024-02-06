@@ -1,33 +1,62 @@
 // importing packages and modules
 const express = require("express");
 const HospitalRoute = express.Router();
+const asynchandler = require("express-async-handler");
 
 // importing controller modules
-let {showAll,add,up,del}=require("../controllers/hospitalController")
+let {find,showAll,add,up,del}=require("../controllers/hospitalController")
 
 
+/**
+ * @descrip show
+ *  @method  post
+ * */ 
 
-HospitalRoute.get("/",async(req,res)=>{
+HospitalRoute.post("/show",asynchandler(async(req,res)=>{
     res.send(await showAll() )
-})
+}))
 
 
-HospitalRoute.post("/add",async(req,res)=>{
-    let data= add(req.body.id,req.body.name,req.body.city,req.body.street)
-    res.send(add()) 
-})
+/**
+ * @descrip find
+ *  @method  post
+ * */ 
+
+HospitalRoute.post("/:id",asynchandler(async(req,res)=>{
+    res.send(await find(req.params.id) )
+}))
 
 
-HospitalRoute.post("/up",async(req,res)=>{
-    let data= await up(req.body.oldValue,req.body.newValue)
+/**
+ * @descrip add
+ *  @method  post
+ * */
+
+HospitalRoute.post("/add",asynchandler(async(req,res)=>{
+    let data= await add(req.body)
     res.send(data) 
-})
+}))
 
 
-HospitalRoute.post("/del",async(req,res)=>{
-    let data= await del(req.body.name)
+/**
+ * @descrip update
+ *  @method  post
+ * */
+
+HospitalRoute.post("/up/:id",asynchandler(async(req,res)=>{
+    let data= await up(req.params.id,req.body)
     res.send(data) 
-})
+}))
+
+/**
+ * @descrip delete
+ *  @method  post
+ * */
+
+HospitalRoute.post("/del/:id",asynchandler(async(req,res)=>{
+    let data= await del(req.params.id)
+    res.send(data) 
+}))
 
 
 

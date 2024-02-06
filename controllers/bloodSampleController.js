@@ -1,12 +1,28 @@
 let { BloodSample } = require("../models/bloodSample");
 const asynchandler = require("express-async-handler");
 
+/****@show */
 let showBloodSamples = asynchandler(async () => {
   let data = await BloodSample.find();
   return data;
 });
 
-async function addBloodSample(obj) {
+
+/****@find */
+let findBloodSamples = asynchandler(async (id) => {
+  let data = await BloodSample.find({id});
+  if (data.length >0) {
+    return data;
+  } else {
+    return "no data found";
+  }
+});
+
+
+
+
+/*******@add */
+let addBloodSample = asynchandler(async (obj) => {
   let {
     id,
     receiverId,
@@ -16,39 +32,60 @@ async function addBloodSample(obj) {
     donationDate,
     expireDate,
   } = obj;
-  try {
-    let data = await BloodSample.create({
-      id: id,
-      receiverId: receiverId,
-      donorId: donorId,
-      bloodType: bloodType,
-      donationStatus: donationStatus,
-      donationDate: donationDate,
-      expireDate: expireDate,
-    });
-    console.log("data has been created");
-    return BloodSample.find();
-  } catch (error) {
-    console.log("something error");
-    return error;
+  let data = await BloodSample.create({
+    id,
+    receiverId,
+    donorId,
+    bloodType,
+    donationStatus,
+    donationDate,
+    expireDate,
+  });
+  return "data has been created";
+});
+
+/*******@update */
+let updateBloodSample = asynchandler(async (id, obj) => {
+  let {
+    receiverId,
+    donorId,
+    bloodType,
+    donationStatus,
+    donationDate,
+    expireDate,
+  } = obj;
+  let data = await BloodSample.findOneAndUpdate(
+    { id },
+    {
+      receiverId,
+      donorId,
+      bloodType,
+      donationStatus,
+      donationDate,
+      expireDate,
+    }
+  );
+  if (data) {
+    return "data has been updated";
+  } else {
+    return "no match data";
   }
-}
+});
 
-async function deleteBloodSample(oldValue) {
-  let filter = BloodSample.find({ id: oldValue });
-  await BloodSample.findOneAndDelete(filter);
-  return BloodSample.find();
-}
-
-async function updateBloodSample(oldValue, newValue) {
-  let filter = { id: oldValue };
-  let update = { bloodType: newValue };
-  await BloodSample.findOneAndUpdate(filter, update);
-  return BloodSample.find();
-}
+/*******@delete */
+let deleteBloodSample = asynchandler(async (id) => {
+  /*******question for id*/
+  let data = await BloodSample.findOneAndDelete({ id: id });
+  if (data) {
+    return "data has been deleted";
+  } else {
+    return "no match data";
+  }
+});
 
 module.exports = {
   addBloodSample,
+  findBloodSamples,
   showBloodSamples,
   deleteBloodSample,
   updateBloodSample,
