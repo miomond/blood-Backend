@@ -9,7 +9,7 @@ const app = express();
 const {bloodSampleRoute} =require("./routes/bloodSampleRoute")
 const { HospitalRoute}=require("./routes/hospitalRoute")
 const {localBBroute}=require("./routes/local blood bankRoute")
-// let{add}=require("./controllers/hospitalController")
+const { DonorRoute }=require("./routes/DonorRoute")
 
 
 // Connecting to the database
@@ -29,6 +29,7 @@ mongoose
   app.use("/bloodSample",bloodSampleRoute)
   app.use("/Hospital",HospitalRoute)
   app.use("/localBB",localBBroute)
+  app.use("/Donor",DonorRoute)
   
 
 

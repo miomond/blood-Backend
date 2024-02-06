@@ -1,11 +1,7 @@
 const mongoose = require("mongoose");
 
-const Schema = mongoose.Schema({
-  name: {
-    type: String,
-    required: "name is required",
-    maxlength: 50,
-  },
+const userSchema = mongoose.Schema({
+  name: { type: String, required: "name is required", maxlength: 50 },
   email: {
     type: String,
     required: "email is required",
@@ -36,15 +32,8 @@ const Schema = mongoose.Schema({
     required: "NationalId is required",
     maxlength: 14,
   },
-  BirthDay: {
-    type: Date,
-    required: "BirthDay is required",
-  },
-  fullName: {
-    type: String,
-    required: "fullName is required",
-    maxlength: 150,
-  },
+  BirthDay: { type: Date, required: "BirthDay is required" },
+  fullName: { type: String, required: "fullName is required", maxlength: 150 },
   Gender: {
     type: String,
     required: "Gender is required",
@@ -57,22 +46,8 @@ const Schema = mongoose.Schema({
     maxlength: 11,
     minlength: 11,
   },
-  Address: {
-    type: String,
-    required: "Address is required",
-    maxlength: 100,
-  },
-  City: {
-    type: String,
-    required: "City is required",
-    maxlength: 30,
-  },
-  Age: {
-    type: Number,
-    min: 15,
-  },
-  points: {
-    type: Number,
-    default: 0,
-  },
+  Address: { type: String, required: "Address is required", maxlength: 100 },
+  City: { type: String, required: "City is required", maxlength: 30 },
+  Age: { type: Number, min: 15 },
+  points: { type: Number, default: 0 },
 });
